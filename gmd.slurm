@@ -7,5 +7,6 @@
 #SBATCH --ntasks-per-node=12
 ###############
 cd $SLURM_SUBMIT_DIR
-module load gpumd-4.0
+module load compiler/gcc-12.2.0
+module load gpumd-4.4
 gpumd >> log.file 
