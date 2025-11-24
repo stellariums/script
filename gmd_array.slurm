@@ -2,6 +2,7 @@
 #SBATCH -J lzy_array
 #SBATCH --no-requeue
 #SBATCH -p gpu
+#SBATCH --exclude=gpu01
 #SBATCH -N 1
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks-per-node=12
@@ -16,7 +17,7 @@ mkdir -p $SUB_DIR
 
 # Copy necessary input files to the sub-directory
 # Assuming run.in, model.xyz, and the potential file are the inputs
-cp run.in model.xyz Graphene_Lindsay_2010_modified.txt $SUB_DIR/
+cp run.in model.xyz nep.txt $SUB_DIR/
 
 # Navigate to the sub-directory
 cd $SUB_DIR
