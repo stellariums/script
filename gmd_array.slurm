@@ -23,7 +23,8 @@ cp run.in model.xyz nep.txt $SUB_DIR/
 cd $SUB_DIR
 
 # Load the required module
-module load gpumd-4.0
+module load compiler/gcc-12.2.0
+module load gpumd-4.4
 
 # Run the simulation and redirect output
 gpumd \u003e\u003e log.file
