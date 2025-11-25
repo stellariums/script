@@ -1,8 +1,8 @@
 #!/bin/bash
-#SBATCH -J lzy_1270
+#SBATCH -J lzy_HDCG
 #SBATCH --no-requeue
 #SBATCH -p gpu
-#SBATCH --nodelist=gpu02,gpu03,gpu01
+#SBATCH --exclude=gpu01
 #SBATCH -N 1
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks-per-node=12
