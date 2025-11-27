@@ -7,7 +7,8 @@
 #SBATCH --ntasks-per-node=12
 
 # 加载模块（只需加载一次）
-module load gpumd-4.0
+module load compiler/gcc-12.2.0
+module load gpumd-4.4
 
 # 依次处理当前目录下的所有子目录
 for DIR in */; do
