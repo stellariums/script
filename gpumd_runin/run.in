@@ -1,6 +1,7 @@
 replicate 16 16 50
 potential nep.txt
 velocity 300
+dftd3 pbe 10 6
 time_step 1
 
 ensemble npt_ber 300 300 100 0 0 0 0 0 0 100 100 100 100 100 100 2000
