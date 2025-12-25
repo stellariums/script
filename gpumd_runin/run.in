@@ -12,10 +12,5 @@ ensemble nvt_nhc 300 300 100
 dump_thermo 1000
 run 100000
 
-ensemble nvt_nhc 300 300 100
-dump_thermo 1000
-compute_hnemd 1000 0 0 6e-6
-dump_exyz 1000000
-run 10000000
 
 
