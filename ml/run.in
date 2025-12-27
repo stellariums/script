@@ -1,0 +1,19 @@
+potential nep.txt
+velocity 300 
+
+time_step 1
+
+
+ensemble npt_scr 300 300 100 0 0 0  50 50 50 1000
+dump_thermo 10000
+dump_exyz 10000
+run 100000
+
+ensemble nvt_nhc 300 300  100
+compute_hnemd 1000  0 1e-4 0
+compute_shc 2 250 0 1000 400
+dump_thermo 100000
+dump_exyz 100000
+run 1000000
+
+

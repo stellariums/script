@@ -1,20 +1,20 @@
 #!/bin/bash
-#SBATCH -J lzy_2000k
+#SBATCH -J lzy_1500k
 #SBATCH --no-requeue
 #SBATCH -p gpu
 #SBATCH -N 1
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks-per-node=12
-#SBATCH --array=100-199%6
+#SBATCH --array=131-230%6
 
 
 cd $SLURM_SUBMIT_DIR
 
-SUB_DIR="a.${SLURM_ARRAY_TASK_ID}"
+SUB_DIR="${SLURM_ARRAY_TASK_ID}"
 mkdir -p "$SUB_DIR"
 
 cp run.in nep.txt "$SUB_DIR"/
-cp "a.${SLURM_ARRAY_TASK_ID}.xyz" "$SUB_DIR/model.xyz"
+cp "${SLURM_ARRAY_TASK_ID}.xyz" "$SUB_DIR/model.xyz"
 
 # 在 model.xyz 第二行末尾追加 pbc="T T F"
 sed -i '2s/$/ pbc="T T F"/' "$SUB_DIR/model.xyz"
