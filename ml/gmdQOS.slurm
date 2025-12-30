@@ -10,7 +10,7 @@
 
 cd $SLURM_SUBMIT_DIR
 module load compiler/gcc-12.2.0
-module load gpumd-4.4
+module load gpumd-4.7
 
 # 赋予脚本可执行权限
 chmod +x run_simulations.sh
