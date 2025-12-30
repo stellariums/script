@@ -24,7 +24,7 @@ cd $SUB_DIR
 
 # Load the required module
 module load compiler/gcc-12.2.0
-module load gpumd-4.4
+module load gpumd-4.7
 
 # Run the simulation and redirect output
 gpumd \u003e\u003e log.file

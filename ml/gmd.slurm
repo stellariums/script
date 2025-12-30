@@ -10,11 +10,11 @@
 
 cd $SLURM_SUBMIT_DIR
 
-SUB_DIR="${SLURM_ARRAY_TASK_ID}"
+SUB_DIR="a.${SLURM_ARRAY_TASK_ID}"
 mkdir -p "$SUB_DIR"
 
 cp run.in nep.txt "$SUB_DIR"/
-cp "${SLURM_ARRAY_TASK_ID}.xyz" "$SUB_DIR/model.xyz"
+cp "a.${SLURM_ARRAY_TASK_ID}.xyz" "$SUB_DIR/model.xyz"
 
 # 在 model.xyz 第二行末尾追加 pbc="T T F"
 sed -i '2s/$/ pbc="T T F"/' "$SUB_DIR/model.xyz"
