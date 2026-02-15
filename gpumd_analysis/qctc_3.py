@@ -1,4 +1,40 @@
 # -*- coding: utf-8 -*-
+"""
+用途
+- 批量读取多个 fold（默认 fold1/fold2/fold3）中的 HNEMD 输出文件，分别计算并汇总平均热导率：
+  - k：来自 kappa.out 的时间累计平均最终值（final_k）
+  - k_spec：来自 shc.out 的频谱热导率积分
+  - k_spec_quantum：对频谱热导率做量子修正后的积分
+- 最终输出：每个 fold 的结果 + 多个 fold 的平均值（mean）与样本标准差（std, ddof=1）。
+
+输入文件（每个 fold 目录必须包含）
+- kappa.out：用于计算 k（累计平均）
+- shc.out：用于计算 k_spec 与 k_spec_quantum（按本脚本固定格式读取）
+- run.in：用于读取外场驱动力 Fe（从包含 compute_hnemd 的那一行取“最后三个数字”Fx,Fy,Fz）
+- dump.xyz：用于读取晶胞参数并计算体积 V（从第 2 行的 Lattice="..." 解析 3x3 晶胞矩阵）
+
+用法
+- 在本脚本所在目录（COF/compute/COF）下运行：
+  - 计算 x 方向（which=0），温度 300 K（默认）：
+    python qctc_3.py --which 0 --T 300
+  - 指定要统计的 fold 目录（可写多个）：
+    python qctc_3.py --folds fold1 fold2 fold3 --which 0 --T 300
+
+参数说明
+- --which: 0/1/2 分别对应 x/y/z 方向
+  - 影响 kappa.out 的列选择（与原 qctc.py 一致）
+  - 同时决定从 run.in 读取 Fx/Fy/Fz 中的哪一个作为 Fe
+- --T: 温度（K），默认 300
+- --folds: fold 目录列表，默认 fold1 fold2 fold3（相对于脚本所在目录）
+
+注意事项
+- 体积 V 的读取以 dump.xyz 为准：本脚本从 dump.xyz 第 2 行的 Lattice="a b c d e f g h i" 构造 3x3 晶胞矩阵，
+  用 det(cell) 计算体积。若晶胞存在剪切（非正交），Lx/Ly/Lz 打印值为三条晶格矢量的范数，仅用于展示。
+- Fe 由 run.in 的 compute_hnemd 行末 3 个数字读取；如果你选择的方向对应 Fe=0，会导致频谱热导率计算除以 0 而报错。
+  请确保对应方向的驱动力分量非零，或改用正确的 --which。
+- shc.out 的读取假设与原脚本一致：前 (2*num_corr_points-1) 行是相关函数段，后面是频域段；默认 num_corr_points=250。
+  如果你的 shc.out 格式不同，需要相应修改 compute_spectral_integrals 的读取逻辑。
+"""
 import argparse
 import re
 from pathlib import Path
