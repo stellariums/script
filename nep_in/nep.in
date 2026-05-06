@@ -1,0 +1,6 @@
+version              4
+type                 2 U  N 
+cutoff 5 5
+lambda_v 0.5
+generation 150000
+
