@@ -1,0 +1,45 @@
+INPUT_PARAMETERS
+pseudo_dir              /public/home/like/lzy/UN/UN-potential/
+orbital_dir             /public/home/like/lzy/UN/UN-potential/
+
+basis_type	lcao
+symmetry	0
+device gpu 1
+calculation	scf
+
+ecutwfc		150         ###Energy cutoff needs to be tested to ensure your calculation is reliable.[1]
+scf_thr		1.0e-7    
+scf_nmax	300        #the max step
+
+smearing_method	mp2
+smearing_sigma 0.001
+
+nspin 2
+########+U###############
+dft_plus_u         0          # 启用 DFT+U 修正
+#orbital_corr      3 -1        # 修正铀（U）的 f 轨道,N no modified
+#hubbard_u     0.7 0     # 设置 U eff值 = 1.9 eV
+#########################
+mixing_restart  5e-4
+mixing_dmr      1
+#uramping 0.5
+########################
+mixing_type pulay
+mixing_beta 0.1       #for converge
+mixing_ndim 20        #for converge
+
+#nupdown 0.00000
+
+out_mul 1
+#vdw_method d3_bj
+out_chg 1 10
+init_chg auto
+cal_force   1
+cal_stress  1
+
+
+#nband
+
+### [1] Energy cutoff determines the quality of numerical quadratures in your calculations.
+###     So it is strongly recommended to test whether your result (such as converged SCF energies) is
+###     converged with respect to the energy cutoff.
